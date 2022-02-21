@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <%- include('../styles/style'); %>
+    <%- include('./partials/head'); %>
+    <%- include('./partials/header'); %>
+
+
+      <!-- Page Content-->
+      <div class="container-fluid p-0">
+        <!-- About-->
+        <section class="resume-section" id="about">
+            <div class="resume-section-content">
+    <form action="/personal/add" method="post" enctype="multipart/form-data">
+
+      
+
+        first Name : <input type="text" name="f_name"><br>
+        last Name : <input type="text" name="l_name"><br>
+        location : <input type="text" name="lo_name"><br>
+        email : <input type="text" name="e_name"><br>
+        Number : <input type="number" name="n_number"><br>
+        
+        product summery <br><textarea name="pe_summery" id="" cols="30" rows="10"></textarea>
+        product Image : <input type="file" name="p_image"><br>
+        
+      
+        <br><input type="submit" value="save ">
+
+    </form>
+    </div>
+    </section>
+    </div>
+
+    <script>
+        
+// Scripts
+// 
+
+window.addEventListener('DOMContentLoaded', event => {
+
+// Activate Bootstrap scrollspy on the main nav element
+const sideNav = document.body.querySelector('#sideNav');
+if (sideNav) {
+    new bootstrap.ScrollSpy(document.body, {
+        target: '#sideNav',
+        offset: 74,
+    });
+};
+
+// Collapse responsive navbar when toggler is visible
+const navbarToggler = document.body.querySelector('.navbar-toggler');
+const responsiveNavItems = [].slice.call(
+    document.querySelectorAll('#navbarResponsive .nav-link')
+);
+responsiveNavItems.map(function (responsiveNavItem) {
+    responsiveNavItem.addEventListener('click', () => {
+        if (window.getComputedStyle(navbarToggler).display !== 'none') {
+            navbarToggler.click();
+        }
+    });
+});
+
+});
+
+    </script>
+</body>
+</html>
