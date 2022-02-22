@@ -4,9 +4,13 @@ const mogoose = require("mongoose");
 const Student = require("./models/student");
 const Product = require("./models/products");
 const Personal = require("./models/personal");
+const Education = require("./models/education");
+const Skill = require("./models/skills");
+const experiance = require("./models/experiance");
 const { default: mongoose } = require("mongoose");
 
 const person = require("./models/personal");
+const language = require("./models/language");
 const app = express();
 app.use(express.static("public/"))
 const storage = multer.diskStorage({
@@ -154,16 +158,157 @@ app.get("/", auth, (req, res) => {
 });
 
 app.get("/people", auth, (req, res) => {
-  res.render("People");
+  Personal.find().then((reslut)=>{
+
+    res.render("People",{personal:reslut});
 });
 
-app.get("/eduction", auth, (req, res) => {
+});
+app.delete('/people/:id', (req, res, next) => {
+  Personal.deleteOne({_id: req.params.id}).then(
+    () => {
+      res.status(200).json({
+        message: 'Deleted!'
+      });
+    }
+  ).catch(
+    (error) => {
+      res.status(400).json({
+        error: error
+      });
+    }
+  );
+});
+app.get("/education", auth, (req, res) => {
   res.render("Education");
 });
-app.get("/eduction/add",auth,(req, res)=>
+app.get("/education/add",auth,(req, res)=>
 {
   res.render("create_education")
 })
+
+app.post("/education/add", upload.single('p_image'), (req, res) => {
+  
+  // console.log(req.file.filename);
+ const p=new Education({
+       id:mongoose.Types.ObjectId,
+       name:req.body.place_name,
+       date:req.body.date,
+       description:req.body.p_description,
+      
+   });
+   p.save((error,result)=>{
+     
+       if(error)
+      console.log(error.message);
+       else
+       console.log(result);
+       
+
+   });
+
+   console.log("data inserted successful");
+   res.end();
+   
+});
+
+app.get("/skills", auth, (req, res) => {
+  res.render("skills");
+});
+app.get("/skills/add",auth,(req, res)=>
+{
+  res.render("create_skill")
+})
+
+app.post("/skills/add", upload.single('p_image'), (req, res) => {
+  
+  // console.log(req.file.filename);
+ const p=new Skill({
+       id:mongoose.Types.ObjectId,
+       name:req.body.myskill,
+      
+      
+   });
+   p.save((error,result)=>{
+     
+       if(error)
+      console.log(error.message);
+       else
+       console.log(result);
+       
+
+   });
+
+   console.log("data inserted successful");
+   res.end();
+   
+});
+
+app.get("/experiance", auth, (req, res) => {
+  res.render("experiance");
+});
+app.get("/experiance/add",auth,(req, res)=>
+{
+  res.render("create_experiance")
+})
+
+app.post("/experiance/add", upload.single('p_image'), (req, res) => {
+  
+  // console.log(req.file.filename);
+ const p=new experiance({
+       id:mongoose.Types.ObjectId,
+       name:req.body.place_name,
+       date:req.body.date,
+       description:req.body.p_description,
+      
+   });
+   p.save((error,result)=>{
+     
+       if(error)
+      console.log(error.message);
+       else
+       console.log(result);
+       
+
+   });
+
+   console.log("data inserted successful");
+   res.end();
+   
+});
+
+
+app.get("/language", auth, (req, res) => {
+  res.render("language");
+});
+app.get("/language/add",auth,(req, res)=>
+{
+  res.render("create_languge")
+})
+
+app.post("/language/add", upload.single('p_image'), (req, res) => {
+  
+  // console.log(req.file.filename);
+ const p=new language({
+       id:mongoose.Types.ObjectId,
+       name:req.body.language,
+      
+      
+   });
+   p.save((error,result)=>{
+     
+       if(error)
+      console.log(error.message);
+       else
+       console.log(result);
+       
+
+   });
+
+   console.log("data inserted successful");
+   res.end();
+   
+});
 
 
 function auth(req, res, next) {

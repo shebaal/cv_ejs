@@ -32,25 +32,17 @@
                     <div class="contact-form-wrapper d-flex">
 
 
-                        <form action="/education/add" method="post" class="contact-form  ">
+                        <form action="/language/add" method="post" class="contact-form  ">
 
                       
                             <div class="d-flex">
                                 <input type="text" class="form-control rounded border-white mb-3 form-input"
-                                    name="place_name" placeholder="place name">
+                                    name="language" placeholder="enter language">
                                     </div>
-                            <div class="d-flex">
-                              
-                                    <input type="date" class="form-control rounded border-white mb-3 form-input"
-                                    name="date" placeholder="date">
-                            </div>
+                         
 
                        
-                            <div>
-                                <textarea  class="form-control rounded border-white mb-3 form-input"
-                                    name="p_description" placeholder="Description">
-          </textarea>
-                            </div>
+                        
 
 <div class="text-center">
            <input type="submit" value="save" class="p-2 px-2 rounded-1 border-0 bg-primary text-white">
@@ -63,22 +55,7 @@
                 </div>
             </div>
         </div>
-        <script>
-            function readURL(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
-                        $('#imagePreview').hide();
-                        $('#imagePreview').fadeIn(650);
-                    }
-                    reader.readAsDataURL(input.files[0]);
-                }
-            }
-            $("#imageUpload").change(function () {
-                readURL(this);
-            });
-        </script>
+     
 </body>
 
 </html>
