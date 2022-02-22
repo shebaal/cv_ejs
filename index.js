@@ -5,6 +5,8 @@ const Student = require("./models/student");
 const Product = require("./models/products");
 const Personal = require("./models/personal");
 const { default: mongoose } = require("mongoose");
+
+const person = require("./models/personal");
 const app = express();
 app.use(express.static("public/"))
 const storage = multer.diskStorage({
@@ -116,25 +118,24 @@ Product.find().then((reslut)=>{
 });
 
 
-app.get("/personal/add", auth, (req, res) => {
+app.get("/person/add", auth, (req, res) => {
   res.render("create_personal");
 });
-app.post("/personal/add", upload.single('p_image'), (req, res) => {
+app.post("/person/add", upload.single('p_image'), (req, res) => {
   
    // console.log(req.file.filename);
-  const pe=new Personal({
-  
+  const p=new Personal({
         id:mongoose.Types.ObjectId,
-        first_name:req.body.f_name,
-        last_name:req.body.l_name,
-        location:req.body.lo_name,
-        email:req.body.e_name,
-        number:req.body.n_number,
-        summery:req.body.pe_summery,
-        image:req.file.pe_image
+        name:req.body.p_name,
+        number:req.body.p_price,
+        description:req.body.p_description,
+        l_name:req.body.pl_name,
+        email:req.body.p_email,
+        image:req.file.filename
         
     });
-    pe.save((error,result)=>{
+    p.save((error,result)=>{
+      
         if(error)
        console.log(error.message);
         else
@@ -147,6 +148,23 @@ app.post("/personal/add", upload.single('p_image'), (req, res) => {
     res.end();
     
 });
+
+app.get("/", auth, (req, res) => {
+  res.render("index");
+});
+
+app.get("/people", auth, (req, res) => {
+  res.render("People");
+});
+
+app.get("/eduction", auth, (req, res) => {
+  res.render("Education");
+});
+app.get("/eduction/add",auth,(req, res)=>
+{
+  res.render("create_education")
+})
+
 
 function auth(req, res, next) {
   next();
