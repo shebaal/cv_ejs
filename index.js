@@ -164,23 +164,23 @@ app.get("/people", auth, (req, res) => {
 });
 
 });
-app.delete('/people/:id', (req, res, next) => {
-  Personal.deleteOne({_id: req.params.id}).then(
-    () => {
-      res.status(200).json({
-        message: 'Deleted!'
-      });
-    }
-  ).catch(
-    (error) => {
-      res.status(400).json({
-        error: error
-      });
-    }
-  );
-});
+
+app.get('/people/delete/(:id)', function(req, res, next) {
+  Personal.findByIdAndRemove(req.params.id, (err, doc) => {
+      if (!err) {
+          res.redirect('/people');
+      } else {
+          console.log('Failed to Delete user Details: ' + err);
+      }
+  });
+})
 app.get("/education", auth, (req, res) => {
-  res.render("Education");
+  Education.find().then((reslut)=>{
+
+
+    res.render('Education',{education:reslut});
+});
+
 });
 app.get("/education/add",auth,(req, res)=>
 {
@@ -212,8 +212,22 @@ app.post("/education/add", upload.single('p_image'), (req, res) => {
    
 });
 
+app.get('/education/delete/(:id)', function(req, res, next) {
+  Education.findByIdAndRemove(req.params.id, (err, doc) => {
+      if (!err) {
+          res.redirect('/education');
+      } else {
+          console.log('Failed to Delete education Details: ' + err);
+      }
+  });
+})
+
 app.get("/skills", auth, (req, res) => {
-  res.render("skills");
+  Skill.find().then((reslut)=>{
+
+
+    res.render('skills',{skill:reslut});
+});
 });
 app.get("/skills/add",auth,(req, res)=>
 {
@@ -243,9 +257,21 @@ app.post("/skills/add", upload.single('p_image'), (req, res) => {
    res.end();
    
 });
+app.get('/skills/delete/(:id)', function(req, res, next) {
+  Skill.findByIdAndRemove(req.params.id, (err, doc) => {
+      if (!err) {
+          res.redirect('/skills');
+      } else {
+          console.log('Failed to Delete skill Details: ' + err);
+      }
+  });
+})
+
 
 app.get("/experiance", auth, (req, res) => {
-  res.render("experiance");
+  experiance.find().then((reslut)=>{
+    res.render('experiance',{experiance:reslut});
+});
 });
 app.get("/experiance/add",auth,(req, res)=>
 {
@@ -276,10 +302,21 @@ app.post("/experiance/add", upload.single('p_image'), (req, res) => {
    res.end();
    
 });
-
+app.get('/experiance/delete/(:id)', function(req, res, next) {
+  experiance.findByIdAndRemove(req.params.id, (err, doc) => {
+      if (!err) {
+          res.redirect('/experiance');
+      } else {
+          console.log('Failed to Delete experiance Details: ' + err);
+      }
+  });
+})
 
 app.get("/language", auth, (req, res) => {
-  res.render("language");
+  language.find().then((reslut)=>{
+    res.render('language',{language:reslut});
+});
+
 });
 app.get("/language/add",auth,(req, res)=>
 {
@@ -309,6 +346,16 @@ app.post("/language/add", upload.single('p_image'), (req, res) => {
    res.end();
    
 });
+
+app.get('/language/delete/(:id)', function(req, res, next) {
+  language.findByIdAndRemove(req.params.id, (err, doc) => {
+      if (!err) {
+          res.redirect('/language');
+      } else {
+          console.log('Failed to Delete language Details: ' + err);
+      }
+  });
+})
 
 
 function auth(req, res, next) {
