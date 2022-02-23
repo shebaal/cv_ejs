@@ -238,7 +238,7 @@ app.post('/people/update/:id', function (req, res, next) {
   req.assert('p_email', 'A valid email is required').isEmail()  //Validate email
   req.assert('p_description', 'description is required').notEmpty()   //Validate description
 
-  var errors = req.validationErrors()
+  var errors = req.validate
 
   if (!errors) {
 
@@ -280,7 +280,7 @@ app.post('/people/update/:id', function (req, res, next) {
      * because req.param('name') is deprecated
      */
   
-    res.render('people/edit', {
+    res.render('update_personal', {
       title: 'Edit user',
       id: req.params.id,
       name: req.body.p_name,
