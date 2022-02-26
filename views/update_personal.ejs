@@ -31,13 +31,13 @@
                 <div> 
                     <div class="contact-form-wrapper d-flex">
 
-                       <form action="/people/update/<%= data._id %>" method="post" enctype="multipart/form-data"  class="contact-form  ">
+                       <form action="/people/update/<%= mydata._id %>" method="post" enctype="multipart/form-data"  class="contact-form  ">
 
                             <div>
                                 <!-- <input type="file" name="p_image"> -->
                                 <div class="avatar-upload">
                                     <div class="avatar-edit">
-                                        <input type='file' id="imageUpload" name="p_image" accept=".png, .jpg, .jpeg" value="<%= data.image %>"/>
+                                        <input type='file' id="imageUpload" name="p_image" accept=".png, .jpg, .jpeg" value="<%= mydata.image %>"/>
                                         <label for="imageUpload"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#708294"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></label>
                                     </div>
                                     <div class="avatar-preview">
@@ -51,20 +51,20 @@
 
                             <div class="d-flex">
                                 <input type="text" class="form-control rounded border-white mb-3 form-input"
-                                    name="p_name" placeholder="first Name" value="<%= data.name %>">
+                                    name="p_name" placeholder="first Name" value="<%= mydata.name %>">
                                     <input type="text" class="form-control rounded border-white mb-3 form-input"
-                                    name="pl_name" placeholder="last Name" value="<%= data.l_name %>">
+                                    name="pl_name" placeholder="last Name" value="<%= mydata.l_name %>">
                             </div>
 
                             <div class="d-flex">
                                 <input type="number" class="form-control rounded border-white mb-3 form-input"
-                                    name="p_price" placeholder="Number" value="<%= data.number %>">
+                                    name="p_price" placeholder="Number" value="<%= mydata.number %>">
                                     <input type="email" class="form-control rounded border-white mb-3 form-input"
-                                    name="p_email" placeholder="Email" value="<%= data.email %>" >
+                                    name="p_email" placeholder="Email" value="<%= mydata.email %>" >
                             </div>
                             <div>
                                 <textarea  class="form-control rounded border-white mb-3 form-input"
-                                    name="p_description" placeholder="Summery" value="<%= data.description %> ">
+                                    name="p_description" placeholder="Summery" value="<%= mydata.description %> ">
           </textarea>
                             </div>
 

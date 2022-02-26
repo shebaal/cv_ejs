@@ -33,6 +33,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+var expressValidator = require("express-validator");
+app.use(expressValidator());
 
 // app.use(logger('dev'));
 app.use(express.json());
@@ -237,8 +239,8 @@ app.post('/people/update/:id', function (req, res, next) {
   req.assert('p_image', 'image is required').notEmpty()   //Validate image
   req.assert('p_email', 'A valid email is required').isEmail()  //Validate email
   req.assert('p_description', 'description is required').notEmpty()   //Validate description
-
-  var errors = req.validate
+ 
+var errors = req.validationErrors();
 
   if (!errors) {
 
@@ -256,14 +258,15 @@ app.post('/people/update/:id', function (req, res, next) {
        { l_name: req.body.pl_name }, 
        { number: req.body.p_price }, 
        { image: req.body.p_image }, 
-       { email: req.body.p_email }, function (err, data) {
+       { email: req.body.p_email }, function (err, mydata) {
         if (err) {
+          // mydata:data
           req.flash('error', 'Something Goes to Wrong!');
           res.render('People');
         }
         else {
           req.flash('success', 'User has been updated successfully!');
-          res.redirect('/people');
+          res.send('/people');
         }
       });
 
@@ -273,6 +276,7 @@ app.post('/people/update/:id', function (req, res, next) {
     errors.forEach(function (error) {
       error_msg += error.msg + '<br>'
     })
+  
     req.flash('error', error_msg)
 
     /**
