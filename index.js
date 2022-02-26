@@ -190,8 +190,6 @@ app.post("/person/add", upload.single('p_image'), (req, res) => {
 
 });
 
-
-
 app.get("/", auth, (req, res) => {
   res.render("index");
 });
@@ -255,7 +253,7 @@ var errors = req.validationErrors();
       description: req.sanitize('p_description').escape().trim()
     }
     Personal.findByIdAndUpdate(req.body.id,
-      { name:req.body.p_name ,  description:req.body.p_description ,l_name: req.body.pl_name ,number: req.body.p_price , image: req.body.p_image , email:req.body.p_email }, function (err, data) {
+      { name:req.body.p_name }, { description:req.body.p_description } ,{ l_name: req.body.pl_name } ,{ number: req.body.p_price }  ,{ image: req.body.p_image } , { email:req.body.p_email }, function (err, data) {
      
         if (err) {
           
@@ -263,7 +261,7 @@ var errors = req.validationErrors();
           res.render('People');
         }
         else {
-          req.flash('success', 'User has been updated successfully!');
+          req.flash('success', 'User has been updated successfully!',data);
           
           res.redirect('/people');
         }
@@ -278,10 +276,10 @@ var errors = req.validationErrors();
   
     req.flash('error', error_msg)
 
-//     /**
-//      * Using req.body.name 
-//      * because req.param('name') is deprecated
-//      */
+    /**
+     * Using req.body.name 
+     * because req.param('name') is deprecated
+     */
   
     res.render('update_personal', {
       title: 'Edit user',
@@ -296,23 +294,6 @@ var errors = req.validationErrors();
     })
   }
 })
-
-// app.put('/people/update',function (req, res,next) { 
-//   var user_id = req.body.id;
-  
-// User.findByIdAndUpdate(user_id, { name: req.body.name },
-//     function (err, data) {
-//     if (err){
-//         console.log(err)
-//     }
-//     else{
-//       data:data
-      
-//     }
-// });
-
-// })
-
 
 app.get("/education", auth, (req, res) => {
   Education.find().then((reslut) => {
