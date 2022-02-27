@@ -232,7 +232,7 @@ app.get('/people/edit/(:id)', function (req, res, next) {
 
 
 // EDIT USER POST ACTION
-app.post('/people/update/:id', function (req, res, next) {
+app.post('/people/edit/:id', function (req, res, next) {
   req.assert('p_name', 'Name is required').notEmpty()   //Validate nam
   req.assert('pl_name', 'l_name is required').notEmpty()   //Validate l_name
   req.assert('p_price', 'number is required').notEmpty()   //Validate number
@@ -252,8 +252,8 @@ var errors = req.validationErrors();
       email: req.sanitize('p_email').escape().trim(),
       description: req.sanitize('p_description').escape().trim()
     }
-    Personal.findByIdAndUpdate(req.body.id,
-      { name:req.body.p_name }, { description:req.body.p_description } ,{ l_name: req.body.pl_name } ,{ number: req.body.p_price }  ,{ image: req.body.p_image } , { email:req.body.p_email }, function (err, data) {
+     Personal.findByIdAndUpdate(req.body.id,
+      { name:req.body.p_name }, { description:req.body.p_description } ,{ l_name: req.body.pl_name } ,{ number: req.body.p_price }  ,{ image: req.body.p_image } , { email:req.body.p_email },{returnOriginal:false}, function (err, doc) {
      
         if (err) {
           
@@ -261,7 +261,7 @@ var errors = req.validationErrors();
           res.render('People');
         }
         else {
-          req.flash('success', 'User has been updated successfully!',data);
+          req.flash('success', 'User has been updated successfully!',doc);
           
           res.redirect('/people');
         }
@@ -480,3 +480,4 @@ function auth(req, res, next) {
 }
 
 app.listen("3000");
+// uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu

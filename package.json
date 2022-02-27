@@ -9,6 +9,7 @@
     "express-flash": "github:RGBboy/express-flash",
     "express-session": "^1.17.2",
     "express-validator": "^4.3.0",
+    "method-override": "^3.0.0",
     "mongoose": "^6.2.2",
     "multer": "^1.4.4",
     "nodemon": "^2.0.15",
